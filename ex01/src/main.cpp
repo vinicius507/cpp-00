@@ -6,27 +6,30 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:28:31 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/04 17:01:30 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:33:30 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 #include <iostream>
-#include <ostream>
+#include <string>
 
 int main(void) {
+  PhoneBook book;
   Contact contact;
+  Contact contacts[10];
 
-  contact.set_first_name("Vinicius");
-  contact.set_last_name("Oliveira");
-  contact.set_nickname("Dezano");
-  contact.set_phone_number("+5583999999999");
-  contact.set_darkest_secret("I am Dezano");
+  for (int i = 0; i < 10; i++) {
+    contacts[i].set_nickname(std::to_string(i));
+    std::cout << "Add contact: " << i << std::endl;
+    book.add_contact(contacts[i]);
 
-  std::cout << contact.get_first_name() << " " << contact.get_last_name()
-            << std::endl;
-  std::cout << contact.get_nickname() << std::endl;
-  std::cout << contact.get_phone_number() << std::endl;
-  std::cout << contact.get_darkest_secret() << std::endl;
+    std::cout << "-- Contacts --" << std::endl;
+    for (int j = 0; j < book.get_num_contacts(); j++) {
+      contact = book.get_contact(j);
+      std::cout << "[" << j << "] " << contact.get_nickname() << std::endl;
+    }
+  }
+
   return 0;
 }
