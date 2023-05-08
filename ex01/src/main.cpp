@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:28:31 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/07 22:47:57 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/07 23:19:12 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void cmd_add(PhoneBook &book) {
   book.add_contact(ctt);
 }
 
-static void border(void) {
+static void print_table_border(void) {
   int cols = 4;
 
   for (int i = 0; i < cols; i++) {
@@ -58,28 +58,47 @@ static void border(void) {
   std::cout << "+" << std::endl;
 }
 
-static void cell(std::string content) {
+static void print_table_cell(std::string content) {
   std::cout << "|" << std::setw(10) << std::setfill(' ') << content;
 }
 
 static void endofrow(void) { std::cout << "|" << std::endl; }
 
-static void header(void) {
-  cell("Id");
-  cell("First Name");
-  cell("Last Name");
-  cell("Nickname");
+static void print_table_header(void) {
+  print_table_cell("Id");
+  print_table_cell("First Name");
+  print_table_cell("Last Name");
+  print_table_cell("Nickname");
+  endofrow();
+}
+
+static void print_contact_row(PhoneBook &book, int id) {
+  Contact &ctt = book.get_contact(id);
+
+  print_table_cell(std::to_string(id));
+  print_table_cell(ctt.get_first_name());
+  print_table_cell(ctt.get_last_name());
+  print_table_cell(ctt.get_nickname());
   endofrow();
 }
 
 static void search_display_contacts(PhoneBook &book) {
-  border();
-  header();
-  border();
-  (void)book;
+  print_table_border();
+  print_table_header();
+  print_table_border();
+  for (int i = 0; i < book.get_num_contacts(); i++)
+    print_contact_row(book, i);
+  print_table_border();
 }
 
-static void cmd_search(PhoneBook &book) { search_display_contacts(book); }
+static void cmd_search(PhoneBook &book) {
+  if (book.get_num_contacts() == 0) {
+    std::cout << "There are 0 contacts in the phonebook." << std::endl;
+    return;
+  }
+
+  search_display_contacts(book);
+}
 
 static t_cmd_handler get_cmd_handler(std::string cmd) {
   if (cmd == "ADD")
