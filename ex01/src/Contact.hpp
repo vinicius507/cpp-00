@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:40:23 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/04 16:56:40 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/08 10:37:18 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
  * @brief Declaration of the Contact class.
  */
 
-#ifndef CONTACT_H
-#define CONTACT_H
+#ifndef CONTACT_HPP
+#define CONTACT_HPP
 
 #include <iostream>
 

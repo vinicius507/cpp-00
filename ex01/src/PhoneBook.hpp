@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:02:12 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/04 17:32:47 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/08 10:37:26 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
  * @brief Declaration of the PhoneBook class.
  */
 
-#ifndef PHONEBOOK_H
-#define PHONEBOOK_H
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
 #include "Contact.hpp"
 
