@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:28:31 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/04 17:33:30 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:16:53 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,66 @@
 #include <iostream>
 #include <string>
 
-int main(void) {
-  PhoneBook book;
-  Contact contact;
-  Contact contacts[10];
+typedef void (*t_cmd_handler)(PhoneBook &book);
 
-  for (int i = 0; i < 10; i++) {
-    contacts[i].set_nickname(std::to_string(i));
-    std::cout << "Add contact: " << i << std::endl;
-    book.add_contact(contacts[i]);
+static std::string prompt(std::string prefix) {
+  std::string ans;
 
-    std::cout << "-- Contacts --" << std::endl;
-    for (int j = 0; j < book.get_num_contacts(); j++) {
-      contact = book.get_contact(j);
-      std::cout << "[" << j << "] " << contact.get_nickname() << std::endl;
-    }
+  std::cout << prefix;
+  std::getline(std::cin, ans);
+
+  if (std::cin.eof()) {
+    std::cerr << std::endl << "error: EOF reached while reading standard input";
+    exit(1);
   }
 
+  if (std::cin.fail()) {
+    std::cerr << "error: input failure while reading standard input";
+    exit(1);
+  }
+  return ans;
+}
+
+static void cmd_add(PhoneBook &book) {
+  Contact ctt;
+
+  std::cout << "Add a contact" << std::endl;
+
+  ctt.set_first_name(prompt("First name: "));
+  ctt.set_last_name(prompt("Last name: "));
+  ctt.set_nickname(prompt("Nickname: "));
+  ctt.set_phone_number(prompt("Phone number: "));
+  ctt.set_darkest_secret(prompt("Darkest secret: "));
+
+  book.add_contact(ctt);
+}
+
+static t_cmd_handler get_cmd_handler(std::string cmd) {
+  if (cmd == "ADD") {
+    return (cmd_add);
+  }
+  return (NULL);
+}
+
+int main(void) {
+  PhoneBook book;
+  std::string cmd;
+  t_cmd_handler handler;
+
+  do {
+    cmd = prompt("phonebook# ");
+
+    if (cmd == "EXIT")
+      break;
+
+    handler = get_cmd_handler(cmd);
+
+    if (handler == NULL) {
+      std::cerr << "Unknown command: " << cmd << std::endl;
+      continue;
+    }
+
+    handler(book);
+  } while (1);
   return 0;
 }
