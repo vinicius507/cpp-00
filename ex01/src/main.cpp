@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:28:31 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/07 23:19:12 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/07 23:24:45 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,13 @@ static void print_table_border(void) {
 }
 
 static void print_table_cell(std::string content) {
-  std::cout << "|" << std::setw(10) << std::setfill(' ') << content;
+  std::string cell_data;
+
+  cell_data = content;
+  if (content.length() > 10) {
+    cell_data = content.substr(0, 9) + ".";
+  }
+  std::cout << "|" << std::setw(10) << std::setfill(' ') << cell_data;
 }
 
 static void endofrow(void) { std::cout << "|" << std::endl; }
