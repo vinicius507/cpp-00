@@ -6,11 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:28:31 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/07 22:16:53 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:47:57 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include <iomanip>
 #include <iostream>
 #include <string>
 
@@ -48,10 +49,43 @@ static void cmd_add(PhoneBook &book) {
   book.add_contact(ctt);
 }
 
-static t_cmd_handler get_cmd_handler(std::string cmd) {
-  if (cmd == "ADD") {
-    return (cmd_add);
+static void border(void) {
+  int cols = 4;
+
+  for (int i = 0; i < cols; i++) {
+    std::cout << "+" << std::setw(11) << std::setfill('-');
   }
+  std::cout << "+" << std::endl;
+}
+
+static void cell(std::string content) {
+  std::cout << "|" << std::setw(10) << std::setfill(' ') << content;
+}
+
+static void endofrow(void) { std::cout << "|" << std::endl; }
+
+static void header(void) {
+  cell("Id");
+  cell("First Name");
+  cell("Last Name");
+  cell("Nickname");
+  endofrow();
+}
+
+static void search_display_contacts(PhoneBook &book) {
+  border();
+  header();
+  border();
+  (void)book;
+}
+
+static void cmd_search(PhoneBook &book) { search_display_contacts(book); }
+
+static t_cmd_handler get_cmd_handler(std::string cmd) {
+  if (cmd == "ADD")
+    return (cmd_add);
+  if (cmd == "SEARCH")
+    return (cmd_search);
   return (NULL);
 }
 
