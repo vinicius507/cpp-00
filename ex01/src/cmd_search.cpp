@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 10:34:20 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/08 21:01:07 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:31:27 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static std::string phonebook_table(PhoneBook &book) {
   for (int i = 0; i < book.get_num_contacts(); i++) {
     ctt = book.get_contact(i);
 
-    tbl << table_row(std::to_string(i), ctt.get_first_name(),
+    tbl << table_row(std::to_string(i + 1), ctt.get_first_name(),
                      ctt.get_last_name(), ctt.get_nickname());
   }
 
@@ -81,14 +81,14 @@ static int get_contact_index(PhoneBook &book) {
     ss << prompt("Choose a contact by its index to view its information: ");
     ss >> index;
 
-    if (index >= 0 && index < book.get_num_contacts()) {
-      return index;
+    if (index > 0 && index <= book.get_num_contacts()) {
+      return (index - 1);
     }
 
-    std::cerr << "error: expected a non-negative number smaller than "
-              << book.get_num_contacts() << std::endl;
+    std::cerr << "error: expected a number of the range bigger than 1 and "
+                 "smaller than "
+              << book.get_num_contacts() + 1 << ". got: " << index << std::endl;
   }
-  return (index);
 }
 
 static void display_contact_info(Contact &ctt) {
