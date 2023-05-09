@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:04:50 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/09 08:07:07 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:18:57 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,27 @@ int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
 int Account::_totalNbWithdrawals = 0;
 
+Account::Account(void) {
+  this->_accountIndex = Account::getNbAccounts();
+  this->_amount = 0;
+  this->_nbDeposits = 0;
+  this->_nbWithdrawals = 0;
+
+  Account::_nbAccounts++;
+
+  Account::_displayTimestamp();
+  std::cout << "index:" << this->_accountIndex << ";"
+            << "amount:" << this->_amount << ";"
+            << "created" << std::endl;
+}
+
 Account::Account(int initial_deposit) {
+  this->_accountIndex = Account::getNbAccounts();
   this->_amount = initial_deposit;
-  this->_accountIndex = Account::_nbAccounts++;
+  this->_nbDeposits = 0;
+  this->_nbWithdrawals = 0;
+
+  Account::_nbAccounts++;
   Account::_totalAmount += initial_deposit;
 
   Account::_displayTimestamp();
