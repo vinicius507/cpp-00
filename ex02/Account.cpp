@@ -35,6 +35,22 @@ Account::~Account(void) {
             << ";closed" << std::endl;
 };
 
+int Account::getNbAccounts(void) { return Account::_nbAccounts; }
+
+int Account::getTotalAmount(void) { return Account::_totalAmount; }
+
+int Account::getNbDeposits(void) { return Account::_totalNbDeposits; }
+
+int Account::getNbWithdrawals(void) { return Account::_totalNbWithdrawals; }
+
+void Account::displayAccountsInfos(void) {
+  Account::_displayTimestamp();
+  std::cout << "accounts:" << Account::getNbAccounts()
+            << ";total:" << Account::getTotalAmount()
+            << ";deposits:" << Account::getNbDeposits()
+            << ";withdrawals:" << Account::getNbWithdrawals() << std::endl;
+}
+
 void Account::_displayTimestamp(void) {
   char buf[19] = {'\0'};
   time_t now = time(NULL);
