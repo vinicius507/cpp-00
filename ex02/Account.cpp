@@ -6,12 +6,13 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:04:50 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/08 21:37:22 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/09 07:59:10 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
 #include <iostream>
+#include <ostream>
 #include <time.h>
 
 int Account::_nbAccounts = 0;
@@ -68,7 +69,8 @@ bool Account::makeWithdrawal(int withdrawal) {
   if (withdrawal > this->_amount) {
     Account::_displayTimestamp();
     std::cout << "index:" << this->_accountIndex
-              << ";p_amount:" << this->_amount << ";withdrawal:refused";
+              << ";p_amount:" << this->_amount << ";withdrawal:refused"
+              << std::endl;
     return (false);
   }
 
@@ -81,7 +83,7 @@ bool Account::makeWithdrawal(int withdrawal) {
   std::cout << "index:" << this->_accountIndex
             << ";p_amount:" << this->_amount + withdrawal
             << ";withdrawal:" << withdrawal << ";amount:" << this->_amount
-            << ";nb_withdrawals:" << this->_nbWithdrawals;
+            << ";nb_withdrawals:" << this->_nbWithdrawals << std::endl;
   return (true);
 }
 
