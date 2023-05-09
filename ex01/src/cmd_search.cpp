@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 10:34:20 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/09 08:31:27 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:47:53 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int get_contact_index(PhoneBook &book) {
   std::stringstream ss;
 
   while (1) {
+    ss.str(std::string());
     ss.clear();
     ss << prompt("Choose a contact by its index to view its information: ");
     ss >> index;
@@ -87,7 +88,7 @@ static int get_contact_index(PhoneBook &book) {
 
     std::cerr << "error: expected a number of the range bigger than 1 and "
                  "smaller than "
-              << book.get_num_contacts() + 1 << ". got: " << index << std::endl;
+              << book.get_num_contacts() + 1 << std::endl;
   }
 }
 
