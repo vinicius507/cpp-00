@@ -29,6 +29,12 @@ Account::Account(int initial_deposit) {
             << ";created" << std::endl;
 }
 
+Account::~Account(void) {
+  Account::_displayTimestamp();
+  std::cout << "index:" << this->_accountIndex << ";amount:" << this->_amount
+            << ";closed" << std::endl;
+};
+
 void Account::_displayTimestamp(void) {
   char buf[19] = {'\0'};
   time_t now = time(NULL);
