@@ -6,11 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 10:34:20 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/05/08 10:36:41 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:01:07 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include "prompt.hpp"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -71,11 +72,44 @@ static std::string phonebook_table(PhoneBook &book) {
   return (tbl.str());
 }
 
+static int get_contact_index(PhoneBook &book) {
+  int index;
+  std::stringstream ss;
+
+  while (1) {
+    ss.clear();
+    ss << prompt("Choose a contact by its index to view its information: ");
+    ss >> index;
+
+    if (index >= 0 && index < book.get_num_contacts()) {
+      return index;
+    }
+
+    std::cerr << "error: expected a non-negative number smaller than "
+              << book.get_num_contacts() << std::endl;
+  }
+  return (index);
+}
+
+static void display_contact_info(Contact &ctt) {
+  std::cout << "First name: " << ctt.get_first_name() << std::endl
+            << "Last name: " << ctt.get_last_name() << std::endl
+            << "Nickname: " << ctt.get_nickname() << std::endl
+            << "Phone number: " << ctt.get_phone_number() << std::endl
+            << "Darkest secret: " << ctt.get_darkest_secret() << std::endl;
+}
+
 void cmd_search(PhoneBook &book) {
+  int index;
+  Contact ctt;
+
   if (book.get_num_contacts() == 0) {
     std::cout << "There are 0 contacts in the phonebook." << std::endl;
     return;
   }
 
   std::cout << phonebook_table(book);
+  index = get_contact_index(book);
+  ctt = book.get_contact(index);
+  display_contact_info(ctt);
 }
